@@ -5,8 +5,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 var (
@@ -40,5 +42,18 @@ func main() {
 }
 
 func RedirectServer(w http.ResponseWriter, r *http.Request) {
+	logRequest(r)
 	http.Redirect(w, r, redirectURL, http.StatusMovedPermanently)
+}
+
+// helper to log a message to stdout in Common Log Format
+func logRequest(r *http.Request) {
+	now := time.Now()
+
+	clfLog := fmt.Sprintf("%s - - [%s] \"%s %s %s\" %d %d \"%s\" \"%s\"\n",
+		r.RemoteAddr, now.Format("02/Jan/2006:15:04:05 -0700"), r.Method,
+		r.RequestURI, r.Proto, http.StatusMovedPermanently, 0, r.Referer(), r.UserAgent(),
+	)
+
+	log.Print(clfLog)
 }

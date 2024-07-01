@@ -1,6 +1,7 @@
 ## This program redirects all web traffic to a website you specify.
 
 **How to build**
+
 `go build redirect.go`
 
 **How to use**

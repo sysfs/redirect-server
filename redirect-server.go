@@ -17,7 +17,9 @@ var (
 )
 
 func init() {
-	flag.StringVar(&redirectURL, "redirect-url", "", "URL to redirect to (required)")
+	envURL := os.Getenv("REDIRECT_URL")
+
+	flag.StringVar(&redirectURL, "redirect-url", envURL, "URL to redirect to (required)")
 	flag.BoolVar(&help, "help", false, "Show help message")
 
 	flag.Parse()

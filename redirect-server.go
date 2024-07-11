@@ -43,7 +43,8 @@ func main() {
 
 func RedirectServer(w http.ResponseWriter, r *http.Request) {
 	logRequest(r)
-	http.Redirect(w, r, redirectURL, http.StatusMovedPermanently)
+	newURL := redirectURL + r.URL.Path
+	http.Redirect(w, r, newURL, http.StatusMovedPermanently)
 }
 
 // helper to log a message to stdout in Common Log Format
